@@ -47,7 +47,7 @@ export const specialityData = [
 
 export const counsellors = [
   {
-    _id: 1,
+    _id: "c1",
     name: "Dr. Aditi Sharma",
     image: headerpic,
     speciality: "Academic",
@@ -59,7 +59,7 @@ export const counsellors = [
     address_line2: "New Delhi, India",
   },
   {
-    _id: 2,
+    _id: "c2",
     name: "Mr. Rajeev Menon",
     image: headerpic,
     speciality: "Career",
@@ -71,7 +71,7 @@ export const counsellors = [
     address_line2: "Bangalore, India",
   },
   {
-    _id: 3,
+    _id: "c3",
     name: "Dr. Neha Patel",
     image: headerpic,
     speciality: "Mental Health",
@@ -83,7 +83,7 @@ export const counsellors = [
     address_line2: "Ahmedabad, India",
   },
   {
-    _id: 4,
+    _id: "c4",
     name: "Ms. Sunita Reddy",
     image: headerpic,
     speciality: "Overseas Education",
@@ -95,7 +95,7 @@ export const counsellors = [
     address_line2: "Hyderabad, India",
   },
   {
-    _id: 5,
+    _id: "c5",
     name: "Dr. Nikhil Verma",
     image: headerpic,
     speciality: "Personal Growth",
@@ -107,7 +107,7 @@ export const counsellors = [
     address_line2: "Pune, India",
   },
   {
-    _id: 6,
+    _id: "c6",
     name: "Ms. Ayesha Khan",
     image: headerpic,
     speciality: "Learning Difficulties",
@@ -119,7 +119,7 @@ export const counsellors = [
     address_line2: "Mumbai, India",
   },
   {
-    _id: 7,
+    _id: "c7",
     name: "Mr. Anil Thakur",
     image: headerpic,
     speciality: "Exam Prep",
@@ -131,7 +131,7 @@ export const counsellors = [
     address_line2: "Kolkata, India",
   },
   {
-    _id: 8,
+    _id: "c8",
     name: "Ms. Riya Das",
     image: headerpic,
     speciality: "Behavioral Support",
@@ -143,7 +143,7 @@ export const counsellors = [
     address_line2: "Chennai, India",
   },
   {
-    _id: 9,
+    _id: "c9",
     name: "Dr. Vikram Rao",
     image: headerpic,
     speciality: "Mental Health",
@@ -155,7 +155,7 @@ export const counsellors = [
     address_line2: "Gurgaon, India",
   },
   {
-    _id: 10,
+    _id: "c10",
     name: "Ms. Shruti Mehta",
     image: headerpic,
     speciality: "Career",
@@ -167,7 +167,7 @@ export const counsellors = [
     address_line2: "Surat, India",
   },
   {
-    _id: 11,
+    _id: "c11",
     name: "Mr. Arjun Nair",
     image: headerpic,
     speciality: "Academic",
@@ -179,7 +179,7 @@ export const counsellors = [
     address_line2: "Trivandrum, India",
   },
   {
-    _id: 12,
+    _id: "c12",
     name: "Ms. Komal Joshi",
     image: headerpic,
     speciality: "Learning Difficulties",
@@ -191,7 +191,7 @@ export const counsellors = [
     address_line2: "Indore, India",
   },
   {
-    _id: 13,
+    _id: "c13",
     name: "Dr. Karan Singh",
     image: headerpic,
     speciality: "Exam Prep",
@@ -203,7 +203,7 @@ export const counsellors = [
     address_line2: "Lucknow, India",
   },
   {
-    _id: 14,
+    _id: "c14",
     name: "Ms. Tanvi Rao",
     image: headerpic,
     speciality: "Personal Growth",
@@ -215,7 +215,7 @@ export const counsellors = [
     address_line2: "Jaipur, India",
   },
   {
-    _id: 15,
+    _id: "c15",
     name: "Dr. Sameer Kulkarni",
     image: headerpic,
     speciality: "Overseas Education",
