@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import logo from "../assets/logo.png"
 import { IoIosArrowDropdown } from "react-icons/io"
 import { BsFilePersonFill } from "react-icons/bs"
+import { MdOutlineMenu } from "react-icons/md"
+import { IoCloseSharp } from "react-icons/io5"
 
 const Navbar = () => {
 
@@ -51,6 +53,22 @@ const Navbar = () => {
           </div>:
           <button onClick={()=>navigate('/signup')} className="text-white px-8 py-4 rounded-full text-l hidden md:block"  style={{backgroundColor: "#5f6FFF"}}>Create Account</button>
         }
+        <MdOutlineMenu onClick={()=>setShowMenu(true)} className='text-xl md:hidden'/>
+          <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+            <div className='flex items-center justify-between px-5 py-5'>
+              <div className='flex items-center justify-center'>
+              <img src={logo} alt="" className='w-16 rounded-full cursor-pointer' />
+              <p className='text-orange-500 font-medium'>PathPilot</p>
+              </div>
+              <IoCloseSharp onClick={()=>setShowMenu(false)} />
+            </div>
+            <ul className='flex flex-col items-center gap-2'>
+              <NavLink to='/' onClick={()=>setShowMenu(false)}>Home</NavLink>
+              <NavLink to='/counsellor' onClick={()=>setShowMenu(false)}>All Counsellors</NavLink>
+              <NavLink to='/about' onClick={()=>setShowMenu(false)}>About</NavLink>
+              <NavLink to='/contact' onClick={()=>setShowMenu(false)}>Contact</NavLink>
+            </ul>
+          </div>
       </div>
     </div>
   )
