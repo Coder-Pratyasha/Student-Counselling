@@ -10,6 +10,7 @@ import MyAppointments from './pages/MyAppointments'
 import Appointment from './pages/Appointment'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import SignUp from './pages/SignUp'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/counsellor' exact element={<Counsellor />} />
         <Route path='/counsellor/:speciality' exact element={<Counsellor />} />
         <Route path='/login' exact element={<Login />} />
+        <Route path='/signup' exact element={<SignUp />} />
         <Route path='/about' exact element={<About />} />
         <Route path='/contact' exact element={<Contact />} />
         <Route path='/my-profile' exact element={<MyProfile />} />

@@ -12,9 +12,9 @@ const Navbar = () => {
   const [token,setToken]=useState(true)
 
   return (
-    <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
+    <div className="flex items-center justify-between text-sm py-4 mb-1 border-b border-b-gray-400 bg-orange-200 p-3">
       <div className="flex items-center">
-      <img onClick={()=>navigate('/')}  src={logo} alt="" className="w-20 cursor-pointer" />
+      <img onClick={()=>navigate('/')}  src={logo} alt="" className="w-20 cursor-pointer rounded-full" />
       <h3 className="text-xl font-extrabold text-orange-500 my-auto">PathPilot</h3>
       </div>
       <ul className="hidden md:flex items-start gap-5 font-medium">
@@ -49,7 +49,7 @@ const Navbar = () => {
                 </div>
               </div>
           </div>:
-          <button onClick={()=>navigate('/login')} className="text-white px-8 py-4 rounded-full text-l hidden md:block"  style={{backgroundColor: "#5f6FFF"}}>Create Account</button>
+          <button onClick={()=>navigate('/signup')} className="text-white px-8 py-4 rounded-full text-l hidden md:block"  style={{backgroundColor: "#5f6FFF"}}>Create Account</button>
         }
       </div>
     </div>

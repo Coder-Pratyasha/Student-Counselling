@@ -3,7 +3,8 @@ import headerpic from "../assets/headerpic.jpg"
 import { FaArrowAltCircleRight } from "react-icons/fa"
 const Header = () => {
   return (
-    <div className='flex flex-col md:flex-row flex-wrap rounded-lg  bg-amber-600 overflow-hidden'>
+    <div className='bg-orange-100'>
+    <div className='flex flex-col md:flex-row flex-wrap rounded-lg bg-amber-600 overflow-hidden'>
        
        <div className='md:w-1/2 flex flex-col items-start justify-center gap-4 py-10 m-auto md:py-[10vw] md:mb-[30px] px-6 md:px-10 lg:px-20'>
         <p className='text-2xl md:text-2xl lg:text-3xl font-semibold leading-tight md:leading-tight lg:leading-tight text-white'>
@@ -23,6 +24,7 @@ const Header = () => {
           <img src={headerpic} alt="" className='absolute bottom-0 right-0 w-full h-full object-cover'/>
        </div>
 
+    </div>
     </div>
   )
 }
