@@ -2,6 +2,10 @@ import validator from 'validator'
 import bcryptjs from 'bcryptjs'
 import {v2 as cloudinary} from 'cloudinary'
 import Counsellor from '../models/counsellor.model.js'
+import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken'
+
+dotenv.config()
 
 const addCounsellor=async(req,res)=>{
     try{
@@ -48,4 +52,21 @@ const addCounsellor=async(req,res)=>{
     }
 }
 
-export {addCounsellor}
+const loginAdmin=async(req,res)=>{
+    try{
+        const {email,password}=req.body
+        if(email==process.env.ADMIN_EMAIL && password==process.env.ADMIN_PASSWORD)
+        {
+            const token=jwt.sign(email+password,process.env.JWT_SECRET)
+            res.json({success:true,token})
+        }
+        else
+        res.status(400).json({success:false,message:"Invalid credentials"})
+    }
+    catch(error){
+        console.error(error)
+        res.status(400).json({success:false,message:"Cannot login"})
+    }
+}
+
+export {addCounsellor, loginAdmin}

@@ -12,7 +12,7 @@ const PORT=process.env.PORT || 3000
 connectCloudinary()
 
 
-mongoose.connect(process.env.MONGO_URI).then(
+mongoose.connect(process.env.MONGODB_URI).then(
     ()=>
     {
         console.log("Database is connected")
