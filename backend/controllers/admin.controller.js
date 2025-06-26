@@ -69,4 +69,15 @@ const loginAdmin=async(req,res)=>{
     }
 }
 
-export {addCounsellor, loginAdmin}
+const allCounsellors=async(req,res)=>{
+    try{
+        const counsellors = await Counsellor.find({}).select('-password')
+        res.json({success:true,counsellors})
+    }catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+    }
+}
+
+export {addCounsellor, loginAdmin, allCounsellors}

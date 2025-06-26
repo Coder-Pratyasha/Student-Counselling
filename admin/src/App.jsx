@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom'
 import AllAppointments from './pages/AllAppointments'
 import CounsellorList from './pages/CounsellorList'
 import AddCounsellor from './pages/AddCounsellor'
+import Dashboard from './pages/Dashboard'
 
 const App = () => {
   const {atoken} =useContext(AdminContext)
