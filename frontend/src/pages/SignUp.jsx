@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../utils/axiosInstance";
+import { toast } from "react-toastify";
+import { AppContext } from "../context/AppContext";
 
 const SignUp = () => {
+  const { token,setToken } = useContext(AppContext)
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,15 +14,36 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      const {data}=await axiosInstance.post('/api/user/signup',{name,email,password})
+      if(data.success)
+      {
+        localStorage.setItem('token',data.token)
+        setToken(data.token)
+       
+      }
+      else
+      {
+        toast.error(data.message)
+      }
+    }
+    catch(error){
+      toast.error(error.message)
+    }
 
     
-
-  };
+  }
+  useEffect(()=>{
+      if(token){
+      navigate('/')
+      }
+    },[token])
 
   const validateEmail = (email) =>
     /\S+@\S+\.\S+/.test(email);
 
   return (
+    
     <div className="min-h-screen bg-orange-100 flex items-center justify-center px-4">
       <div className="relative w-full max-w-4xl mx-auto rounded-lg  overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/2662086/pexels-photo-2662086.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center" />
@@ -63,10 +88,10 @@ const SignUp = () => {
 
             
 
-              <button
+              <button type="submit"
                 
                 className="bg-orange-300 py-2 px-3 mt-3 rounded-lg hover:bg-orange-500 hover:text-white"
-                onClick={()=>navigate('/')}
+                
               >
                 Sign Up
               </button>
@@ -85,6 +110,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+ 
   );
 };
 

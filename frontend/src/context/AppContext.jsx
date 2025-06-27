@@ -10,10 +10,7 @@ const AppContextProvider=(props)=>{
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [counsellors,setCounsellors]=useState([])
-
-    const value={
-        counsellors
-    }
+    const [token,setToken]=useState(localStorage.getItem('token')?localStorage.getItem('token'):false)
 
     const getCounsellorsdata=async(req,res)=>{
         try{
@@ -33,6 +30,13 @@ const AppContextProvider=(props)=>{
             toast.error(error.message)
         }
     }
+    
+    const value={
+        counsellors,
+        token,
+        setToken,backendUrl
+    }
+
     useEffect(()=>{
         getCounsellorsdata()
     },[])
