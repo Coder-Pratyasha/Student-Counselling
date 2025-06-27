@@ -13,4 +13,14 @@ const changeAvaibility = async(req,res)=> {
         res.json({success:false, message:error.message})
     }
 }
+export const CounsellorList=async(req,res)=>{
+    try{
+        const counsellors=await Counsellor.find({}).select(['-password','-email'])
+        res.json({success:true,counsellors})
+    }catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+    }
+}
 export default changeAvaibility

@@ -1,14 +1,41 @@
 import { createContext } from "react";
-import { counsellors } from "../assets/assets";
-
+import axios from 'axios'
+import { useState } from "react";
+import { useEffect } from "react";
+import  {toast} from 'react-toastify'
+ 
 export const AppContext = createContext()
 
 const AppContextProvider=(props)=>{
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    const [counsellors,setCounsellors]=useState([])
 
     const value={
         counsellors
     }
 
+    const getCounsellorsdata=async(req,res)=>{
+        try{
+            const {data} =await axios.get(backendUrl+'/api/counsellor/list')
+            if(data.success)
+            {
+                setCounsellors(data.counsellors)
+
+            }
+            else
+            {
+                toast.error(data.message)
+            }
+        }catch(error)
+        {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
+    useEffect(()=>{
+        getCounsellorsdata()
+    },[])
     return (
         <AppContext.Provider value={value}>
             {props.children}
