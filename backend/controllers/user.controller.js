@@ -75,7 +75,7 @@ export const signup=async(req,res)=>{
         try{
             
             const userData=await User.findById(req.user.id).select('-password')
-            res.json({success:true,message:userData})
+            res.json({success:true,userData})
         }
         catch(error)
         {
