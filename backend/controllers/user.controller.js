@@ -39,3 +39,33 @@ export const signup=async(req,res)=>{
             res.json({success:false,message:error.message})
         }
     }
+    export const signin=async(req,res)=>{
+        try{
+        const {email,password}=req.body
+        if(!email || !password)
+        {
+            return res.json({success:false,message:'All fields are required'})
+        }
+        if(!validator.isEmail(email)){
+            return res.json({success:false,message:'Enter a valid email'})
+        }
+       const validUser=await User.findOne({email})
+       if(!validUser)
+       {
+        return res.json({success:false,message:'No user exists'})
+      }
+        const validPassword = bcryptjs.compareSync(password, validUser.password)
+        if(!validPassword)
+        {
+            return res.json({success:false,message:'Invalid credentials'})
+        }
+           const token=jwt.sign({id:validUser._id},process.env.JWT_SECRET)
+            res.json({success:true,token,message:'Signin successful'})
+            
+        }
+        catch(error)
+        {
+            console.log(error)
+            res.json({success:false,message:error.message})
+        }
+    }
