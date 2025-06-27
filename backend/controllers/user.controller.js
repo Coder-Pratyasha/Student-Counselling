@@ -3,6 +3,7 @@ import User from '../models/user.model.js'
 import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import {v2 as cloudinary} from 'cloudinary'
 
 dotenv.config()
 
@@ -69,3 +70,56 @@ export const signup=async(req,res)=>{
             res.json({success:false,message:error.message})
         }
     }
+
+    export const getprofile=async(req,res)=>{
+        try{
+            
+            const userData=await User.findById(req.user.id).select('-password')
+            res.json({success:true,message:userData})
+        }
+        catch(error)
+        {
+            console.log(error)
+            res.json({success:false,message:error.message})
+        }
+    }
+
+    export const updateProfile = async (req, res) => {
+  try {
+    const { name, phone, address, dob, gender } = req.body;
+    const imageFile = req.file;
+    const userId = req.user.id;
+
+    if (!name || !phone || !address || !dob || !gender) {
+      return res.json({ success: false, message: "Data missing" });
+    }
+
+    const updateData = {
+      name,
+      phone,
+      address,
+      dob,
+      gender,
+    };
+
+    if (imageFile) {
+      const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+        resource_type: 'image',
+      });
+      updateData.image = imageUpload.secure_url;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true, // returns updated document
+      select: '-password', // optional: exclude password field
+    });
+
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
