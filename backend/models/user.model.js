@@ -19,7 +19,7 @@ import mongoose from 'mongoose'
     },
     address:{
         type:String,
-        required:true
+        default:"Not selected"
     },
     gender:{
         type:String,

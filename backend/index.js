@@ -5,6 +5,7 @@ import mongoose from 'mongoose'
 import connectCloudinary from './cloudinary.js'
 import adminRouter from './routes/admin.route.js'
 import counsellorRouter from './routes/counsellor.route.js'
+import userRouter from './routes/user.route.js'
 
 dotenv.config()
 
@@ -29,6 +30,8 @@ app.use(cors())
 app.use('/api/admin',adminRouter)
 
 app.use('/api/counsellor',counsellorRouter)
+
+app.use('/api/user',userRouter)
 
 app.get('/',(req,res)=>{
     res.send('Backend running')
