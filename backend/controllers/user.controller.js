@@ -178,3 +178,27 @@ export const getMyAppointments = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 }
+
+export const cancelAppointment=async(req,res)=>{
+  try{
+    const {appointmentId} =req.body
+    const userId=req.user.id
+    const appointmentData=await Appointment.findById(appointmentId)
+    if(appointmentData.userId!=userId)
+    {
+      return res.json({success:false,message:'Unauthorized action'})
+    }
+    await Appointment.findByIdAndUpdate(appointmentId,{cancelled:true})
+    const {conId,slotDate,slotTime}=appointmentData
+    const counsellorData=await Counsellor.findById(conId)
+    let slots_booked=counsellorData.slots_booked
+    slots_booked[slotDate]=slots_booked[slotDate].filter(e=> e!==slotTime)
+    await Counsellor.findByIdAndUpdate(conId,{slots_booked})
+    res.json({success:true,message:'Appointment cancelled'})
+  }
+  catch(error)
+  {
+    console.log(error)
+    res.json({success:false,message:error.message})
+  }
+}

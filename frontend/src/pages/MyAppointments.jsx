@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 const MyAppointments = () => {
-  const { backendUrl, token } = useContext(AppContext)
+  const { backendUrl, token, getCounsellorsdata } = useContext(AppContext)
   const [appointments, setAppointments] = useState([])
 
   const slotDateFormat=(slotDate)=>{
@@ -27,6 +27,27 @@ const MyAppointments = () => {
     } catch (err) {
       console.error(err)
       toast.error("Failed to fetch appointments")
+    }
+  }
+
+  const cancelAppointment=async(appointmentId)=>{
+    try{
+      const {data}=await axios.post(backendUrl+'/api/user/cancel-appointment',{appointmentId},{headers:{token}})
+      if(data.success)
+      {
+        toast.success(data.message)
+        getMyAppointments()
+        getCounsellorsdata()
+      }
+      else
+      {
+        toast.error(data.message)
+      }
+    }
+    catch(error)
+    {
+      console.log(error)
+      toast.error(error.message)
     }
   }
 
@@ -71,12 +92,20 @@ const MyAppointments = () => {
                 </div>
 
                 <div className="mt-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm sm:text-base">
+                  {
+                    !item.cancelled &&  <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm sm:text-base">
                     Pay Online
                   </button>
-                  <button className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition text-sm sm:text-base">
+                  }
+                 
+                  {
+                    !item.cancelled && <button onClick={()=>cancelAppointment(item._id)} className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 transition text-sm sm:text-base">
                     Cancel Appointment
                   </button>
+                  }
+                  {
+                    item.cancelled && <button className='px-4 py-2 bg-red-600 text-white rounded  text-sm sm:text-base'>Appointment cancelled</button>
+                  }
                 </div>
               </div>
             </div>
