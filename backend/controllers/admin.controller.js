@@ -4,6 +4,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import Counsellor from '../models/counsellor.model.js'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
+import Appointment from '../models/appointment.model.js'
 
 dotenv.config()
 
@@ -80,4 +81,34 @@ const allCounsellors=async(req,res)=>{
     }
 }
 
-export {addCounsellor, loginAdmin, allCounsellors}
+const appointmentsAdmin=async(req,res)=>{
+    try{
+        const appointments=await Appointment.find({})
+        res.json({success:true,appointments})
+    }catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+    }
+}
+
+const appointmentCancel=async(req,res)=>{
+  try{
+    const {appointmentId} =req.body
+    const appointmentData=await Appointment.findById(appointmentId)
+    await Appointment.findByIdAndUpdate(appointmentId,{cancelled:true})
+    const {conId,slotDate,slotTime}=appointmentData
+    const counsellorData=await Counsellor.findById(conId)
+    let slots_booked=counsellorData.slots_booked
+    slots_booked[slotDate]=slots_booked[slotDate].filter(e=> e!==slotTime)
+    await Counsellor.findByIdAndUpdate(conId,{slots_booked})
+    res.json({success:true,message:'Appointment cancelled'})
+  }
+  catch(error)
+  {
+    console.log(error)
+    res.json({success:false,message:error.message})
+  }
+}
+
+export {addCounsellor, loginAdmin, allCounsellors, appointmentsAdmin, appointmentCancel}
