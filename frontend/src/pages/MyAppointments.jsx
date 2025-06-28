@@ -4,10 +4,12 @@ import { toast } from 'react-toastify'
 import { AppContext } from '../context/AppContext'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const MyAppointments = () => {
   const { backendUrl, token, getCounsellorsdata } = useContext(AppContext)
   const [appointments, setAppointments] = useState([])
+  const navigate=useNavigate()
 
   const slotDateFormat=(slotDate)=>{
     const dateArray=slotDate.split('_')
@@ -42,6 +44,50 @@ const MyAppointments = () => {
       else
       {
         toast.error(data.message)
+      }
+    }
+    catch(error)
+    {
+      console.log(error)
+      toast.error(error.message)
+    }
+  }
+  const initPay=(order)=>{
+    const options={
+      key:import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount:order.amount,
+      currency:order.currency,
+      name:'Appointment Payment',
+      description:'Appointment Payment',
+      order_id:order.id,
+      receipt:order.receipt,
+      handler:async(response)=>{
+        console.log(response)
+        try{
+          const {data} = await axios.post(backendUrl+'/api/user/verifyRazorpay',response,{headers:{token}})
+          if(data.success)
+          {
+            getMyAppointments()
+            navigate('/my-appointments')
+          }
+        }
+        catch(error)
+        {
+          console.log(error)
+          toast.error(error.message)
+        }
+      }
+    }
+    const rzp=new window.Razorpay(options)
+    rzp.open()
+  }
+  const appointmentRazorpay=async(appointmentId)=>{
+    try{
+      const {data} =await axios.post(backendUrl+'/api/user/payment-razorpay',{appointmentId},{headers:{token}})
+      if(data.success)
+      {
+       initPay(data.order)
+
       }
     }
     catch(error)
@@ -92,8 +138,9 @@ const MyAppointments = () => {
                 </div>
 
                 <div className="mt-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  {!item.cancelled && item.payment && <button className='px-4 py-2 bg-green-600 text-white rounded  text-sm sm:text-base'>PAID</button>}
                   {
-                    !item.cancelled &&  <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm sm:text-base">
+                    !item.cancelled && !item.payment && <button onClick={()=>appointmentRazorpay(item._id)} className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm sm:text-base">
                     Pay Online
                   </button>
                   }
