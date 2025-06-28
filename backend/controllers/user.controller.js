@@ -4,6 +4,8 @@ import bcryptjs from 'bcryptjs'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import {v2 as cloudinary} from 'cloudinary'
+import Counsellor from '../models/counsellor.model.js'
+import Appointment from '../models/appointment.model.js'
 
 dotenv.config()
 
@@ -110,8 +112,8 @@ export const signup=async(req,res)=>{
     }
 
     const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
-      new: true, // returns updated document
-      select: '-password', // optional: exclude password field
+      new: true, 
+      select: '-password',
     });
 
     res.json({
@@ -123,3 +125,56 @@ export const signup=async(req,res)=>{
     res.json({ success: false, message: error.message });
   }
 };
+
+export const bookAppointment= async(req,res)=>{
+  try{
+    const {conId,slotDate,slotTime}=req.body
+    const userId=req.user.id
+    const conData=await Counsellor.findById(conId).select('-password')
+    if(!conData.available){
+      return res.json({success:false,message:'Counsellor not available'})
+    }
+    let slots_booked=conData.slots_booked
+
+    if(slots_booked[slotDate]){
+    if(slots_booked[slotDate].includes(slotTime)){
+      return res.json({success:false,message:'Slot not available'})
+    }
+    else
+    {
+      slots_booked[slotDate].push(slotTime)
+    }
+  }
+  else
+  {
+    slots_booked[slotDate]=[]
+    slots_booked[slotDate].push(slotTime)
+  }
+
+  const userData=await User.findById(userId).select('-password')
+  delete conData.slots_booked
+  const appointmentData = {
+    userId,conId,userData,conData,amount:conData.fees,slotTime,slotDate,date:Date.now()
+  }
+  const newAppointment=new Appointment(appointmentData)
+  await newAppointment.save()
+
+  await Counsellor.findByIdAndUpdate(conId,{slots_booked})
+
+  res.json({success:true,message:'Appointment Booked'})
+
+  }catch(error)
+  {
+    console.log(error)
+    res.json({success:false,message:error.message})
+  }
+}
+
+export const getMyAppointments = async (req, res) => {
+  try {
+    const appointments = await Appointment.find({ userId: req.user.id });
+    res.json({ success: true, appointments });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+}

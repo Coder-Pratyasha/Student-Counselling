@@ -53,6 +53,7 @@ const AppContextProvider=(props)=>{
     }
     const value={
         counsellors,
+        getCounsellorsdata,
         token,
         setToken,backendUrl,
         userData,setUserData,
