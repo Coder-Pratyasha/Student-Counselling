@@ -10,10 +10,12 @@ import AllAppointments from './pages/AllAppointments'
 import CounsellorList from './pages/CounsellorList'
 import AddCounsellor from './pages/AddCounsellor'
 import Dashboard from './pages/Dashboard'
+import { CounsellorContext } from './context/CounsellorContext'
 
 const App = () => {
   const {atoken} =useContext(AdminContext)
-  return atoken? (
+  const {ctoken}=useContext(CounsellorContext)
+  return atoken || ctoken? (
     <div className='bg-orange-50 min-h-screen'>
       
       <ToastContainer />

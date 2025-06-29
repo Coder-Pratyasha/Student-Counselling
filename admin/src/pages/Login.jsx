@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AdminContext } from '../context/AdminContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { CounsellorContext } from '../context/CounsellorContext'
 
 const Login = () => {
    
@@ -10,6 +11,7 @@ const Login = () => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const {setAtoken,backendUrl} = useContext(AdminContext)
+    const {setCtoken}=useContext(CounsellorContext)
     const onSubmitHandler = async(event)=>{
         event.preventDefault()
         try{
@@ -25,7 +27,16 @@ const Login = () => {
                 }
             }
             else{
-
+                const {data} =await axios.post(backendUrl+'/api/counsellor/login',{email,password})
+                if(data.success){
+                    localStorage.setItem('ctoken',data.token)
+                    setCtoken(data.token)
+                    console.log(data.token)
+                }
+                else
+                {
+                    toast.error(data.message)
+                }
             }
         }
         catch(error){

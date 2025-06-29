@@ -50,7 +50,7 @@ const Dashboard = () => {
   {dashData.latestAppointments.map((item, index) => (
     <div
       key={item._id}
-      className="grid grid-cols-1 border border-blue-500 ml-[15%] mr-[15%] p-2 rounded-md mb-3 bg-white rounded-lg"
+      className="grid grid-cols-1 border border-blue-500 ml-[15%] mr-[15%] p-2 mb-3 bg-white rounded-lg"
     >
       <div className="flex items-stretch gap-3 p-2">
         <img src={item.conData.image} alt="" className="w-20 h-20 rounded object-cover" />
