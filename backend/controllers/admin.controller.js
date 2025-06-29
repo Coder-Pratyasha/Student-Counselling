@@ -5,6 +5,7 @@ import Counsellor from '../models/counsellor.model.js'
 import dotenv from 'dotenv'
 import jwt from 'jsonwebtoken'
 import Appointment from '../models/appointment.model.js'
+import User from '../models/user.model.js'
 
 dotenv.config()
 
@@ -111,4 +112,23 @@ const appointmentCancel=async(req,res)=>{
   }
 }
 
-export {addCounsellor, loginAdmin, allCounsellors, appointmentsAdmin, appointmentCancel}
+const adminDashboard= async(req,res)=>{
+    try{
+        const counsellors=await Counsellor.find({})
+        const users=await User.find({})
+        const appointments=await Appointment.find({})
+        const dashData={
+            counsellors:counsellors.length,
+            users:users.length,
+            appointments:appointments.length,
+            latestAppointments:appointments.reverse()
+        }
+        res.json({success:true,dashData})
+    }catch(error)
+    {
+        console.log(error)
+        res.json({success:true,message:error.message})
+    }
+}
+
+export {addCounsellor, loginAdmin, allCounsellors, appointmentsAdmin, appointmentCancel, adminDashboard}
