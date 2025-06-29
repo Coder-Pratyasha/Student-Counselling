@@ -2,15 +2,20 @@ import React, { useContext } from 'react'
 import { AdminContext } from '../context/AdminContext'
 import logo from '../assets/logo.png'
 import {NavLink, useNavigate} from 'react-router-dom'
+import { CounsellorContext } from '../context/CounsellorContext'
 
 const Navbar = () => {
 
     const {atoken,setAtoken} =useContext(AdminContext)
+    const {ctoken,setCtoken}=useContext(CounsellorContext)
     const navigate=useNavigate()
     const logout=()=>{
         navigate('/')
         atoken && setAtoken('')
         atoken && localStorage.removeItem('atoken')
+        navigate('/')
+        ctoken && setCtoken('')
+        ctoken && localStorage.removeItem('ctoken')
     }
 
   return  (
@@ -36,6 +41,19 @@ const Navbar = () => {
             </NavLink>
             <NavLink to='/counsellor-list' className={({isActive})=> `flex items-center cursor-pointer ${isActive ? 'underline' :''}` }>
             <li>All Counsellors</li>
+            </NavLink>
+          </ul>
+        }
+        {
+          ctoken && <ul className='flex items-center gap-6 font-medium'>
+            <NavLink to='/counsellor-dashboard' className={({isActive})=> `flex items-center cursor-pointer ${isActive ? 'underline' :''}` }>
+            <li>DashBoard</li>
+            </NavLink>
+            <NavLink to='/counsellor-appointments' className={({isActive})=> `flex items-center cursor-pointer ${isActive ? 'underline' :''}` }>
+            <li>Appointments</li>
+            </NavLink>
+            <NavLink to='/counsellor-profile' className={({isActive})=> `flex items-center cursor-pointer ${isActive ? 'underline' :''}` }>
+            <li>Profile</li>
             </NavLink>
           </ul>
         }

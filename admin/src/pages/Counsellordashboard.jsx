@@ -1,6 +1,6 @@
 import React from 'react'
 
-const counsellorprofile = () => {
+const Counsellordashboard = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const counsellorprofile = () => {
   )
 }
 
-export default counsellorprofile
+export default Counsellordashboard

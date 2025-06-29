@@ -11,6 +11,10 @@ import CounsellorList from './pages/CounsellorList'
 import AddCounsellor from './pages/AddCounsellor'
 import Dashboard from './pages/Dashboard'
 import { CounsellorContext } from './context/CounsellorContext'
+import Counsellordashboard from './pages/counsellordashboard'
+import CounsellorAppointment from './pages/counsellorAppointment'
+import Counsellorprofile from './pages/counsellorprofile'
+
 
 const App = () => {
   const {atoken} =useContext(AdminContext)
@@ -26,6 +30,11 @@ const App = () => {
         <Route path='/all-appointments' exact element={<AllAppointments />} />
         <Route path='/add-counsellor' exact element={<AddCounsellor />} />
         <Route path='/counsellor-list' exact element={<CounsellorList />} />
+
+        
+        <Route path='/counsellor-dashboard' exact element={<Counsellordashboard />} />
+        <Route path='/counsellor-appointments' exact element={<CounsellorAppointment />} />
+        <Route path='/counsellor-profile' exact element={<Counsellorprofile />} />
       </Routes>
     </div>
   ):(
