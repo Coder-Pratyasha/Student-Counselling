@@ -1,5 +1,5 @@
 import express from 'express'
-import { appointmentCancel, appointmentComplete, appointmentCounsellor, counsellorDashboard, CounsellorList, loginCounsellors } from '../controllers/counsellor.controller.js'
+import { appointmentCancel, appointmentComplete, appointmentCounsellor, counsellorDashboard, CounsellorList, counsellorProfile, loginCounsellors, updateProfile } from '../controllers/counsellor.controller.js'
 import authCounsellor from '../middlewares/authcounsellor.js'
 const router=express.Router()
 
@@ -14,5 +14,9 @@ router.put('/complete-appointment',authCounsellor,appointmentComplete)
 router.put('/cancel-appointment',authCounsellor,appointmentCancel)
 
 router.get('/dashboard',authCounsellor,counsellorDashboard)
+
+router.get('/profile',authCounsellor,counsellorProfile)
+
+router.put('/update-profile',authCounsellor,updateProfile)
 
 export default router

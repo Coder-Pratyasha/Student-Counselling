@@ -11,6 +11,7 @@ const CounsellorContextProvider=(props)=>{
     const [ctoken,setCtoken]=useState(localStorage.getItem('ctoken')?localStorage.getItem('ctoken'):'')
     const [appointments,setAppointments] = useState([])
     const [dashData,setDashData]=useState(false)
+    const [profileData,setProfileData]=useState(false)
 
     const getAppointments=async()=>{
         try{
@@ -87,9 +88,25 @@ const CounsellorContextProvider=(props)=>{
             toast.error(error.message)
         }
     }
+
+    const getProfileData=async()=>{
+        try{
+            const {data}=await axios.get(backendUrl+'/api/counsellor/profile',{headers:{ctoken}})
+            if(data.success)
+            {
+                setProfileData(data.profileData)
+                console.log(data.profileData)
+            }
+        }
+        catch(error)
+        {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
     const value={
         ctoken,setCtoken,backendUrl,appointments,setAppointments,getAppointments,completeAppointment,cancelAppointment,
-        dashData,setDashData,getDashData
+        dashData,setDashData,getDashData,profileData,setProfileData,getProfileData
     }
     return(
         <CounsellorContext.Provider value={value}>

@@ -140,4 +140,32 @@ export const counsellorDashboard=async(req,res)=>{
 
     }
 }
+
+export const counsellorProfile=async(req,res)=>{
+    try{
+        const conId=req.conId
+        const profileData=await Counsellor.findById(conId).select('-password')
+        res.json({success:true,profileData})
+
+    }catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+    }
+}
+
+export const updateProfile=async(req,res)=>{
+    try{
+        const {fees,address_line1,address_line2,available}=req.body
+        const conId=req.conId
+        await Counsellor.findByIdAndUpdate(conId,{fees,address_line1,address_line2,available})
+        res.json({success:true,message:'Profile updated'})
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+    }
+}
+
 export default changeAvaibility
