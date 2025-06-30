@@ -10,13 +10,14 @@ const CounsellorContextProvider=(props)=>{
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     const [ctoken,setCtoken]=useState(localStorage.getItem('ctoken')?localStorage.getItem('ctoken'):'')
     const [appointments,setAppointments] = useState([])
+    const [dashData,setDashData]=useState(false)
 
     const getAppointments=async()=>{
         try{
             const {data}=await axios.get(backendUrl+'/api/counsellor/appointments',{headers:{ctoken}})
             if(data.success)
             {
-                setAppointments(data.appointments.reverse())
+                setAppointments(data.appointments)
                 console.log(data.appointments.reverse())
             }
             else
@@ -66,8 +67,29 @@ const CounsellorContextProvider=(props)=>{
             toast.error(error.message)
         }
     }
+
+    const getDashData=async()=>{
+        try{
+            const {data}=await axios.get(backendUrl+'/api/counsellor/dashboard',{headers:{ctoken}})
+            if(data.success)
+            {
+                setDashData(data.dashData)
+                console.log(data.dashData)
+            }
+            else
+            {
+                toast.error(data.message)
+            }
+        }
+        catch(error)
+        {
+            console.log(error)
+            toast.error(error.message)
+        }
+    }
     const value={
-        ctoken,setCtoken,backendUrl,appointments,setAppointments,getAppointments,completeAppointment,cancelAppointment
+        ctoken,setCtoken,backendUrl,appointments,setAppointments,getAppointments,completeAppointment,cancelAppointment,
+        dashData,setDashData,getDashData
     }
     return(
         <CounsellorContext.Provider value={value}>

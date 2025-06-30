@@ -24,7 +24,7 @@ const Dashboard = () => {
           <FaUserTie className="text-2xl text-blue-800" />
           <div className="flex items-center gap-2">
             <p className="text-blue-950 font-bold">{dashData.counsellors}</p>
-            <p className="font-medium">Doctors</p>
+            <p className="font-medium">Counsellors</p>
           </div>
         </div>
         <div className="flex flex-1 items-center gap-3 border border-blue-400 p-4  bg-white">

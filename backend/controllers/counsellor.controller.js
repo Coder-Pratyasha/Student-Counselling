@@ -107,4 +107,37 @@ export const appointmentCancel=async(req,res)=>{
         res.json({ success: false, message: error.message });
     }
 }
+
+export const counsellorDashboard=async(req,res)=>{
+    try{
+        const conId=req.conId
+        const appointments=await Appointment.find({conId})
+        let earning=0
+        appointments.map((item)=>{
+            if(item.isCompleted || item.payment)
+            {
+                earning+=item.amount
+            }
+    })
+        let students=[]
+        appointments.map((item)=>{
+            if(!students.includes(item.userId))
+            {
+                students.push(item.userId)
+            }
+    })
+    const dashData={
+        earning,appointments:appointments.length,
+        students:students.length,
+        latestAppointments:appointments.reverse()
+    }
+    res.json({success:true,dashData})
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.json({success:false,message:error.message})
+
+    }
+}
 export default changeAvaibility
