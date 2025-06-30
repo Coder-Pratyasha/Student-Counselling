@@ -27,15 +27,18 @@ const AllAppointments = () => {
           >
             <div className="flex justify-between items-center mb-2 text-sm text-gray-600">
               <p className="font-semibold">Appointment #{index + 1}</p>
-              {item.cancelled ? (
+              {item.cancelled ? 
                 <p className="italic text-gray-500">Cancelled</p>
-              ) : (
+               :
+                 !item.isCompleted ?
                 <IoMdClose
                   className="text-red-600 cursor-pointer hover:scale-110 transition-transform"
                   size={20}
                   onClick={() => cancelAppointment(item._id)}
                 />
-              )}
+              
+              :
+              <div></div>}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm">

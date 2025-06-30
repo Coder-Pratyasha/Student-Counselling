@@ -10,6 +10,7 @@ const Dashboard = () => {
     const dateArray=slotDate.split('_')
     return dateArray[0]+"/"+[Number(dateArray[1])]+"/"+dateArray[2]
   }
+  
 
   useEffect(() => {
     if (atoken) {
@@ -59,15 +60,19 @@ const Dashboard = () => {
           <p className="text-sm text-gray-700">{slotDateFormat(item.slotDate)}</p>
         </div>
         <div className="flex items-center">
-          {item.cancelled ? (
+          {
+          item.cancelled ? 
             <p className="italic text-gray-500">Cancelled</p>
-          ) : (
+          : 
+          item.isCompleted ?
+           <p>Completed</p>
+             :
             <IoMdClose
               className="text-red-600 cursor-pointer hover:scale-110 transition-transform"
               size={20}
-              onClick={() => cancelAppointment(item._id)}
+              
             />
-          )}
+          }
         </div>
       </div>
     </div>
