@@ -1,6 +1,8 @@
 import Counsellor from "../models/counsellor.model.js"
 import jwt from 'jsonwebtoken'
 import bcryptjs from 'bcryptjs'
+import Appointment from "../models/appointment.model.js"
+import mongoose from 'mongoose'
 
 const changeAvaibility = async(req,res)=> {
     try{
@@ -49,6 +51,60 @@ export const loginCounsellors=async(req,res)=>{
     {
         console.log(error)
         res.json({success:false,message:error.message})
+    }
+}
+
+export const appointmentCounsellor = async (req, res) => {
+  try {
+    const conId = new mongoose.Types.ObjectId(req.conId);
+
+    const appointments = await Appointment.find({ conId });
+
+    res.json({ success: true, appointments });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const appointmentComplete=async(req,res)=>{
+    try{
+        const {appointmentId} = req.body
+        const conId=req.conId
+        const appointmentData = await Appointment.findById(appointmentId)
+        if(appointmentData && appointmentData.conId.toString()===conId.toString())
+        {
+            await Appointment.findByIdAndUpdate(appointmentId,{isCompleted:true})
+            return res.json({success:true,message:'Appointment Completed'})
+        }
+        else{
+            return res.json({success:false,message:"Completion Failed"})
+        }
+    }
+    catch(error)
+    {
+        console.error(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+export const appointmentCancel=async(req,res)=>{
+    try{
+        const {appointmentId} = req.body
+        const conId=req.conId
+        const appointmentData = await Appointment.findById(appointmentId)
+        if(appointmentData && appointmentData.conId.toString()===conId.toString())
+        {
+            await Appointment.findByIdAndUpdate(appointmentId,{cancelled:true})
+            return res.json({success:true,message:'Appointment Cancelled'})
+        }
+        else{
+            return res.json({success:false,message:"Cancellation Failed"})
+        }
+    }
+    catch(error)
+    {
+        console.error(error);
+        res.json({ success: false, message: error.message });
     }
 }
 export default changeAvaibility
