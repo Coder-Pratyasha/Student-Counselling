@@ -7,6 +7,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import Counsellor from '../models/counsellor.model.js'
 import Appointment from '../models/appointment.model.js'
 import razorpay from 'razorpay'
+import { sendEmail } from '../sendMail.js'
 
 dotenv.config()
 
@@ -34,6 +35,15 @@ export const signup=async(req,res)=>{
         })
            const user= await newUser.save()
            const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
+           await sendEmail(
+                email,
+                'Welcome to Counselling Portal',
+                `<h2>Welcome, ${name}!</h2>
+                <p>Your account has been successfully created.</p>
+                <p>You can now book appointments with our counsellors easily.</p>
+                <br/>
+                 <p>Regards,<br/>Team Counselling Portal</p>`
+           )
             res.json({success:true,token,message:'Signup successful'})
             
         }
@@ -162,6 +172,16 @@ export const bookAppointment= async(req,res)=>{
 
   await Counsellor.findByIdAndUpdate(conId,{slots_booked})
 
+   await sendEmail(
+                userData.email,
+                'Appointment Confirmation',
+                `<h2>Welcome, ${userData.name}!</h2>
+                <p>Your payment of Rs.${conData.fees} is successful.</p>
+                 <p>Your appointment has been confirmed with ${conData.name} on ${slotDate} at ${slotTime} .</p>
+                <br/>
+                 <p>Regards,<br/>Team PathPilot</p>`
+           )
+
   res.json({success:true,message:'Appointment Booked'})
 
   }catch(error)
@@ -195,6 +215,18 @@ export const cancelAppointment=async(req,res)=>{
     let slots_booked=counsellorData.slots_booked
     slots_booked[slotDate]=slots_booked[slotDate].filter(e=> e!==slotTime)
     await Counsellor.findByIdAndUpdate(conId,{slots_booked})
+
+    const userData=await User.findById(userId)
+    await sendEmail(
+                userData.email,
+                'Appointment Cancelled',
+                `<h2>Welcome, ${userData.name}!</h2>
+                 <p>Your appointment has been cancelled with ${counsellorData.name} on ${slotDate} at ${slotTime} .</p>
+                <br/>
+                 <p>Regards,<br/>Team PathPilot</p>`
+           )
+
+
     res.json({success:true,message:'Appointment cancelled'})
   }
   catch(error)
