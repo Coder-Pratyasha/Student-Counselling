@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import logo from '../assets/logo.png'
 import { AppContext } from '../context/AppContext'
 import axiosInstance from '../utils/axiosInstance.js'
+import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
@@ -24,7 +25,7 @@ const MyProfile = () => {
 
       image && formData.append('image',image)
 
-      const {data} =await axiosInstance.put('/api/user/update-profile',formData,{headers:{token}})
+      const {data} =await axios.put(backendUrl+'/api/user/update-profile',formData,{headers:{token}})
 
       if(data.success)
       {

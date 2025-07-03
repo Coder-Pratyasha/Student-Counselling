@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import { toast } from "react-toastify";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
 
 const SignUp = () => {
-  const { token,setToken } = useContext(AppContext)
+  const { token,setToken,backendUrl } = useContext(AppContext)
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const {data}=await axiosInstance.post('/api/user/signup',{name,email,password})
+      const {data}=await axios.post(backendUrl+'/api/user/signup',{name,email,password})
       if(data.success)
       {
         localStorage.setItem('token',data.token)

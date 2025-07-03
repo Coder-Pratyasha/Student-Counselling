@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axiosInstance from "../utils/axiosInstance";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
 
@@ -15,7 +16,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const {data}=await axiosInstance.post('/api/user/signin',{email,password})
+      const {data}=await axios.post(backendUrl+'/api/user/signin',{email,password})
       if(data.success)
       {
         localStorage.setItem('token',data.token)
