@@ -12,8 +12,8 @@ import AddCounsellor from './pages/AddCounsellor'
 import Dashboard from './pages/Dashboard'
 import { CounsellorContext } from './context/CounsellorContext'
 import Counsellordashboard from './pages/Counsellordashboard'
-import CounsellorAppointment from './pages/counsellorAppointment'
-import Counsellorprofile from './pages/counsellorprofile'
+import CounsellorAppointment from './pages/CounsellorAppointment'
+import Counsellorprofile from './pages/Counsellorprofile'
 
 
 const App = () => {
