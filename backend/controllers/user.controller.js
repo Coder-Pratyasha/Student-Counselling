@@ -285,3 +285,37 @@ export const verifyRazorPay=async(req,res)=>{
     res.json({success:false,message:error.message})
   }
 }
+export const rateAppointment = async (req, res) => {
+  try {
+    const { appointmentId, rating, review } = req.body;
+    const userId = req.user.id;
+
+    if (!rating || rating < 1 || rating > 5) {
+      return res.json({ success: false, message: 'Rating must be between 1 and 5' });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return res.json({ success: false, message: 'Appointment not found' });
+    }
+
+    if (appointment.userId.toString() !== userId) {
+      return res.json({ success: false, message: 'Unauthorized action' });
+    }
+
+    if (appointment.rating) {
+      return res.json({ success: false, message: 'You already rated this appointment' });
+    }
+
+    appointment.rating = rating;
+    if (review) appointment.review = review;
+
+    await appointment.save();
+
+    res.json({ success: true, message: 'Thank you for your feedback!' });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};

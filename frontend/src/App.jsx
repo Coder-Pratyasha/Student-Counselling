@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import SignUp from './pages/SignUp'
 import {ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Rating from './pages/Rating'
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/my-profile' exact element={<MyProfile />} />
         <Route path='/my-appointments' exact element={<MyAppointments />} />
         <Route path='/appointment/:consId' exact element={<Appointment />} />
+        <Route path='/rating/:appointmentId' exact element={< Rating/>} />
       </Routes>
       <Footer />
     </div>

@@ -22,7 +22,7 @@ const CounsellorAppointment = () => {
     <div className="p-6 min-h-screen">
       <p className="text-2xl font-bold mb-4 text-orange-500">All Appointments</p>
       <div className="overflow-x-auto">
-        <div className="grid grid-cols-7 gap-4 bg-gray-200 p-4 font-bold text-gray-700 rounded-md">
+        <div className="grid grid-cols-8 gap-3 bg-gray-200 p-4 font-bold text-gray-700 rounded-md">
           <p>#</p>
           <p>Student</p>
           <p>Payment</p>
@@ -30,10 +30,12 @@ const CounsellorAppointment = () => {
           <p>Date and time</p>
           <p>Fees</p>
           <p>Action</p>
+          <p>Rating</p>
+          
         </div>
         {
           appointments.reverse().map((item, index) => (
-            <div key={index} className="grid grid-cols-7 gap-4 items-center p-4 border-b hover:bg-gray-100">
+            <div key={index} className="grid grid-cols-8 gap-4 items-center p-4 border-b hover:bg-gray-100">
               <p>{index + 1}</p>
               <div className="flex items-center gap-2">
                 <img src={item.userData.image} alt="" className="w-8 h-8 rounded-full object-cover" />
@@ -57,6 +59,10 @@ const CounsellorAppointment = () => {
                 <IoCloseSharp onClick={()=>cancelAppointment(item._id)} className="text-red-600 cursor-pointer" />
               </div>
               }
+              {
+                item.rating? <p className='text-green-600 font-medium'>{item.rating}</p> : <p>Not rated</p>
+              }
+             
               
             </div>
           ))

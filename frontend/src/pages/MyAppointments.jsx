@@ -5,6 +5,7 @@ import { AppContext } from '../context/AppContext'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { IoStarSharp } from 'react-icons/io5'
 
 const MyAppointments = () => {
   const { backendUrl, token, getCounsellorsdata } = useContext(AppContext)
@@ -121,7 +122,7 @@ const MyAppointments = () => {
                 <img
                   src={item.conData.image}
                   alt=""
-                  className="w-full h-full object-cover"
+                  className="w-100 h-100"
                 />
               </div>
 
@@ -156,6 +157,18 @@ const MyAppointments = () => {
                   {
                     item.isCompleted && <button className='px-4 py-2 bg-green-600 text-white rounded  text-sm sm:text-base'>Completed</button>
                   }
+                  {item.isCompleted && !item.rating && (
+                  <button
+                    onClick={() => navigate(`/rating/${item._id}`)}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm sm:text-base"
+                  >
+                    Rate Session
+                  </button>
+                )}
+                {item.rating && (
+                  <span className="text-yellow-600 font-semibold flex items-center"><IoStarSharp /> {item.rating} Rated</span>
+                )}
+
                 </div>
               </div>
             </div>

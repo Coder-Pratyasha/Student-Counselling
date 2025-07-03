@@ -46,7 +46,17 @@ const appointmentSchema=new mongoose.Schema({
     isCompleted:{
         type:Boolean,
         default:false 
-    }
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        default: null
+        },
+    review: {
+        type: String,
+        default: ''
+        }
 })
 
 const Appointment = mongoose.model("Appointment",appointmentSchema)
