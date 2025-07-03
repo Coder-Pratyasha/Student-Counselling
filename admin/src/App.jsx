@@ -11,7 +11,7 @@ import CounsellorList from './pages/CounsellorList'
 import AddCounsellor from './pages/AddCounsellor'
 import Dashboard from './pages/Dashboard'
 import { CounsellorContext } from './context/CounsellorContext'
-import Counsellordashboard from './pages/counsellordashboard'
+import Counsellordashboard from './pages/Counsellordashboard'
 import CounsellorAppointment from './pages/counsellorAppointment'
 import Counsellorprofile from './pages/counsellorprofile'
 
