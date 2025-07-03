@@ -37,12 +37,12 @@ export const signup=async(req,res)=>{
            const token=jwt.sign({id:user._id},process.env.JWT_SECRET)
            await sendEmail(
                 email,
-                'Welcome to Counselling Portal',
+                'SignUp successful',
                 `<h2>Welcome, ${name}!</h2>
                 <p>Your account has been successfully created.</p>
                 <p>You can now book appointments with our counsellors easily.</p>
                 <br/>
-                 <p>Regards,<br/>Team Counselling Portal</p>`
+                 <p>Regards,<br/>Team PathPilot</p>`
            )
             res.json({success:true,token,message:'Signup successful'})
             
