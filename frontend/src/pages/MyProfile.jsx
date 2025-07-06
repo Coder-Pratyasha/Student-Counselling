@@ -47,21 +47,21 @@ const MyProfile = () => {
   }
 
   return userData && (
-    <div className='flex bg-orange-100'>
-      <div className='w-1/2' >
+    <div className='flex flex-col md:flex-row bg-orange-100'>
+     <div className='w-full md:w-1/2 h-60 sm:h-72 md:h-auto flex justify-center items-center overflow-hidden'>
       {
         edit ? <label htmlFor="image" >
           <div className='inline-block relative cursor-pointer'>
-            <img className='h-full w-full p-3 rounded-xl  opacity-75' src={image ? URL.createObjectURL(image) :userData.image} alt="" />
-            <img className='h-full w-full p-3 rounded-xl absolute' src={image ?'' : {logo}} alt="" />
+            <img className='h-full w-auto max-h-60 object-contain p-3 rounded-xl opacity-75' src={image ? URL.createObjectURL(image) :userData.image} alt="" />
+            <img className='absolute inset-0 w-full h-full object-contain p-3 rounded-xl' src={image ?'' : {logo}} alt="" />
           </div>
           <input onChange={(e)=>setImage(e.target.files[0])} type="file" id="image" hidden />
-        </label>  :  <img src={userData.image} className='h-full w-full p-3 rounded-xl' />
+        </label>  :  <img src={userData.image} className='h-full w-auto max-h-60 object-contain p-3 rounded-xl' />
       }
      
       
       </div>
-      <div className='w-1/2  p-3 border border-gray-800 rounded-lg m-3'>
+      <div className='w-full md:w-1/2 p-4 border border-gray-800 rounded-lg m-3'>
         
         {
         edit ? <input type="text" 
@@ -72,7 +72,7 @@ const MyProfile = () => {
         <p className='text-2xl font-black flex justify-center mb-3'>{userData.name}</p>
          }
         <p className='text-xl font-medium mb-2'>ABOUT USER</p>
-      <div className='grid grid-cols-[1fr_3fr]'>
+      <div className='grid grid-cols-1 sm:grid-cols-[1fr_3fr] gap-2'>
         
         
         <p className='mb-1'>DOB: </p>
@@ -99,7 +99,7 @@ const MyProfile = () => {
         }
       </div>
       <p className='text-xl font-medium mb-2 mt-3'>CONTACT</p>
-      <div className='grid grid-cols-[1fr_3fr]'>
+      <div className='grid grid-cols-1 sm:grid-cols-[1fr_3fr] gap-2'>
         
          <p className='mb-1'>phone: </p>
         {

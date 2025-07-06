@@ -118,11 +118,11 @@ const MyAppointments = () => {
               key={index}
               className="flex flex-col md:flex-row rounded-xl border border-gray-700 bg-orange-100 overflow-hidden"
             >
-              <div className="md:w-1/3 w-full h-64 md:h-auto">
+              <div className="md:w-1/3 w-full h-full md:h-[250px] ">
                 <img
                   src={item.conData.image}
                   alt=""
-                  className="w-100 h-100"
+                  className="w-full h-64 md:h-full object-cover object-top"
                 />
               </div>
 

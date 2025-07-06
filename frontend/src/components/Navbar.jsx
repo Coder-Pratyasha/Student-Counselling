@@ -48,7 +48,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         {
           token && userData ?
-          <div className='flex items-center gap-2 cursor-pointer group relative'>
+          <div className='hidden md:flex items-center gap-2 cursor-pointer group relative'>
             <img className='w-15 rounded-full' src={userData.image} alt="" />
             <IoIosArrowDropdown className='text-xl'/>
             <div className='absolute top-1 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
@@ -76,6 +76,15 @@ const Navbar = () => {
               <NavLink to='/about' onClick={()=>setShowMenu(false)}>About</NavLink>
               <NavLink to='/contact' onClick={()=>setShowMenu(false)}>Contact</NavLink>
             </ul>
+            {token && userData && (
+            <div className='flex flex-col items-center gap-3 mt-4'>
+              <img className='w-16 rounded-full' src={userData.image} alt="user" />
+              <p className='text-gray-700 font-semibold'>{userData.name}</p>
+              <NavLink to='/my-profile' onClick={() => setShowMenu(false)} className='text-blue-700'>My Profile</NavLink>
+              <NavLink to='/my-appointments' onClick={() => setShowMenu(false)} className='text-blue-700'>My Appointments</NavLink>
+              <p onClick={() => { logout(); setShowMenu(false); }} className='cursor-pointer text-red-600'>Logout</p>
+            </div>
+          )}
           </div>
       </div>
     </div>
