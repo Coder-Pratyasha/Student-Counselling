@@ -19,7 +19,8 @@ const Navbar = () => {
     }
 
   return  (
-    <div className='flex items-center justify-between p-2 bg-orange-100'>
+    <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-y-3 p-2 bg-orange-100 w-full overflow-x-auto'>
+
         <div className='flex items-center justify-center gap-4'>
             <div className='flex items-center'>
         <img src={logo} alt=" " className='w-16 rounded-full border border-black' />

@@ -49,7 +49,8 @@ const Login = () => {
 
 
   return (
-    <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7653084/pexels-photo-7653084.jpeg')] bg-cover bg-center mx-50 shadow-2xl rounded-2xl">
+   <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/7653084/pexels-photo-7653084.jpeg')] bg-cover bg-center flex items-center justify-center px-4 py-8">
+
     <div className="w-full md:w-1/2 bg-white/80 p-6 md:p-8 rounded-lg shadow-lg z-10 max-w-md mx-auto mt-[10%]">
         
     <form className="flex flex-col items-center p-10" onSubmit={onSubmitHandler}>

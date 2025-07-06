@@ -17,7 +17,7 @@ const AllAppointments = () => {
       <p className="text-2xl font-bold mb-4 text-orange-500">All Appointments</p>
 
       <div className="overflow-x-auto">
-        <div className="grid grid-cols-9 gap-3 bg-gray-200 p-4 font-bold text-gray-700 rounded-md">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-3 bg-gray-200 p-4 font-bold text-gray-700 rounded-md min-w-[700px]">
           <p>#</p>
           <p>Student</p>
           <p>Doctor</p>
@@ -30,7 +30,7 @@ const AllAppointments = () => {
         </div>
 
         {appointments.slice().reverse().map((item, index) => (
-          <div key={index} className="grid grid-cols-9 gap-4 items-center p-4 border-b hover:bg-gray-50 text-sm">
+          <div key={index} className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-4 items-center p-4 border-b hover:bg-gray-50 text-sm min-w-[700px]">
             <p>{index + 1}</p>
 
             <div className="flex items-center gap-2">

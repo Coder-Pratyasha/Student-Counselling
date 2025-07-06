@@ -43,15 +43,15 @@ const Counsellorprofile = () => {
   }, [ctoken])
 
   return profileData && (
-    <div className='flex bg-orange-50 min-h-[500px]'>
-      <div className='w-1/2 flex items-center justify-center'>
+    <div className='flex flex-col lg:flex-row bg-orange-50 min-h-[500px]'>
+      <div className='w-full lg:w-1/2 flex items-center justify-center mb-4 lg:mb-0'>
         <img
           src={profileData.image}
           alt="Counsellor"
           className='h-[500px] w-auto object-cover rounded-xl'
         />
       </div>
-      <div className='w-1/2 p-3 border border-gray-800 rounded-lg m-3'>
+      <div className='w-full lg:w-1/2 p-3 border border-gray-800 rounded-lg m-3'>
         <p className='text-2xl font-black flex justify-center mb-3'>{profileData.name}</p>
         <p className='text-lg font-semibold mb-2'>{profileData.degree} - {profileData.speciality}</p>
 
