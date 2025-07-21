@@ -65,14 +65,14 @@ const SignUp = () => {
 
               <input
                 type="text"
-                placeholder="Enter your name"
+                placeholder="Enter your username"
                 className="p-3 bg-gray-100 rounded-lg mb-2"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Enter your email"
                 className="p-3 bg-gray-100 rounded-lg mb-2"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

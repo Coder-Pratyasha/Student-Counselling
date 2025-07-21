@@ -112,7 +112,7 @@ const MyAppointments = () => {
       {appointments.length === 0 ? (
         <p className="text-center text-gray-600">No appointments booked yet.</p>
       ) : (
-        <div className="space-y-6">
+        <div className="grid gap-6 sm:grid-cols-2">
           {appointments.map((item, index) => (
             <div
               key={index}
