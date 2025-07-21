@@ -80,7 +80,7 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="Enter your password"
-                className="p-3 bg-gray-100 rounded-lg mb-2"
+                className="p-3 bg-gray-100  rounded-lg mb-2"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
